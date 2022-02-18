@@ -3,6 +3,7 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Injectable } from '@nestjs/common';
 import { jwtConstants } from '../constants';
 
+// 设置验证策略
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor() {

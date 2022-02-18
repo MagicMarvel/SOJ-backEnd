@@ -1,4 +1,4 @@
 // 本机密钥
 export const jwtConstants = {
-  secret: 'secretKey',
+  secret: 'this is a secret',
 };
