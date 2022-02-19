@@ -5,10 +5,10 @@ import { ROLES_KEY } from './roles.decorator';
 
 // 自定义的守卫，检测元数据中的要求的角色权限，并与request中的user.roles数组对照，user形如下
 /**
- * class User {
- * // ...other properties
- * roles: Role[];
- * }
+ *   class User {
+ *   // ...other properties
+ *   roles: Role[];
+ *   }
  */
 @Injectable()
 export class RolesGuard implements CanActivate {
