@@ -3,7 +3,6 @@ import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { UsersModule } from '../users/users.module';
 import { AuthService } from './auth.service';
-import { jwtConstants } from './constants';
 import { JwtStrategy } from './strategy/jwt.strategy';
 import { LocalStrategy } from './strategy/local.strategy';
 
@@ -14,9 +13,11 @@ import { LocalStrategy } from './strategy/local.strategy';
     UsersModule,
     PassportModule,
     // 引入jwt模块，设置token过期时间，生成token的那个工具也在这里引入，才能进行注入
-    JwtModule.register({
-      secret: jwtConstants.secret,
-      signOptions: { expiresIn: '60s' },
+    JwtModule.registerAsync({
+      useFactory: () => ({
+        secret: process.env.JWT_SECRET,
+        signOptions: { expiresIn: '3 days' },
+      }),
     }),
   ],
   providers: [AuthService, LocalStrategy, JwtStrategy],
