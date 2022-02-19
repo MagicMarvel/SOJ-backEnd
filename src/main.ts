@@ -1,11 +1,13 @@
-import { NestFactory } from '@nestjs/core';
+import { APP_PIPE, NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
+import { ValidationPipe } from './validate.pipe';
 
 declare const module: any;
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.useGlobalPipes(new ValidationPipe());
 
   // 添加swagger支持
   const options = new DocumentBuilder()
