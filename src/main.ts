@@ -1,4 +1,4 @@
-import { APP_PIPE, NestFactory } from '@nestjs/core';
+import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { ValidationPipe } from './validate.pipe';

@@ -17,6 +17,10 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   // 必要的，守卫会自动运行这个，并把结果插入req，由于这个是服务器发送的并经过了签名，便不需要验证数据库是否有这一条，
   // 只要解码正确即可，解码是passport做的，如果解码错误会抛出异常
   async validate(payload: any) {
-    return { user_id: payload.sub, username: payload.username };
+    return {
+      user_id: payload.sub,
+      username: payload.username,
+      roles: payload.roles,
+    };
   }
 }

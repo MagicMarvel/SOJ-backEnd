@@ -26,7 +26,15 @@ export class AuthService {
 
   // 用JwtService返回一个token
   async login(user: any) {
-    const payload = { username: user.name, sub: user.user_id };
+    let roles = user.roles.map((element) => {
+      return element.role;
+    });
+
+    const payload = {
+      username: user.name,
+      sub: user.user_id,
+      roles: roles,
+    };
     return {
       access_token: this.jwtService.sign(payload),
     };

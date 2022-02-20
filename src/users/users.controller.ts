@@ -5,6 +5,7 @@ import {
   UseGuards,
   Request,
   Get,
+  SetMetadata,
 } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UsersService } from './users.service';
@@ -12,6 +13,9 @@ import { LocalAuthGuard } from '../auth/guard/local-auth.guard';
 import { AuthService } from 'src/auth/auth.service';
 
 import { JwtAuthGuard } from '../auth/guard/jwt-auth.guard';
+import { Roles } from 'src/roles/roles.decorator';
+import { Role } from 'src/roles/role.enum';
+import { RolesGuard } from 'src/roles/roles.guard';
 
 @Controller('user')
 export class UsersController {
@@ -35,7 +39,11 @@ export class UsersController {
   // 使用守卫，把守卫配置成身份验证守卫，策略为Jwt
   @Get('profile')
   @UseGuards(JwtAuthGuard)
+  // @Roles(Role.User)
   async getProfile(@Request() req) {
+    console.log(req.user);
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { secret, ...result } = await this.usersService.findOne(
       req.user.username,
     );
