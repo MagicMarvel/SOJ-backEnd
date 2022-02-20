@@ -10,6 +10,7 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
   constructor(private readonly authService: AuthService) {
     super();
   }
+
   // 正确则返回这个 user，这个 user 会被加载到 req 中，不正确则抛出异常，守卫自动运行这个
   async validate(username: string, password: string): Promise<any> {
     const user = await this.authService.validateUser(username, password);

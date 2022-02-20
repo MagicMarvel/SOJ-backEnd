@@ -1,32 +1,37 @@
-import { Injectable } from '@nestjs/common';
-export type User = any;
+import { HttpException, Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { User } from './entities/users.entity';
+import { Repository } from 'typeorm';
+import { CreateUserDto } from './dtos/create-user.dto';
+import * as bcrypt from 'bcrypt';
 
-// 查数据库，返回用户的密码散列值
 @Injectable()
 export class UsersService {
-  private readonly users: User[];
+  constructor(
+    @InjectRepository(User) private usersRepository: Repository<User>,
+  ) {}
 
-  constructor() {
-    this.users = [
-      {
-        userId: 1,
-        username: 'john',
-        password: 'changeme',
-      },
-      {
-        userId: 2,
-        username: 'chris',
-        password: 'secret',
-      },
-      {
-        userId: 3,
-        username: 'maria',
-        password: 'guess',
-      },
-    ];
+  // 返回某用户的所有信息、包括密码散列值
+  async findOne(username: string) {
+    return await this.usersRepository.findOne({ name: username });
   }
 
-  async findOne(username: string): Promise<User | undefined> {
-    return this.users.find((user) => user.username === username);
+  async create(createUserDto: CreateUserDto) {
+    const oldUser = await this.usersRepository
+      .createQueryBuilder('user')
+      .where('user.name= :name', { name: createUserDto.name })
+      .orWhere('user.email = :email', { email: createUserDto.email })
+      .getRawOne();
+
+    if (JSON.stringify(oldUser) !== undefined) {
+      throw new HttpException('email or name unavailble!', 404);
+    }
+
+    const newUser = new User();
+    newUser.email = createUserDto.email;
+    newUser.name = createUserDto.name;
+    newUser.secret = await bcrypt.hash(createUserDto.secret, 12);
+    this.usersRepository.save(newUser);
+    return 'add user success';
   }
 }

@@ -7,25 +7,6 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { RolesModule } from './roles/roles.module';
 
-// @Module({
-//   imports: [
-//     ConfigModule.forRoot(),
-//     TypeOrmModule.forRootAsync({
-//       useFactory: () => ({
-//         type: 'mysql',
-//         host: process.env.DATABASE_HOST,
-//         port: +process.env.DATABASE_PORT,
-//         username: process.env.DATABASE_USER,
-//         password: process.env.DATABASE_PASSWORD,
-//         database: process.env.DATABASE_NAME,
-//         autoLoadEntities: true,
-//       }),
-//     }),
-//   ],
-//   controllers: [AppController],
-//   providers: [AppService],
-// })
-
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -40,6 +21,7 @@ import { RolesModule } from './roles/roles.module';
         username: config.get('DATABASE_USER'),
         password: config.get('DATABASE_PASSWORD'),
         database: config.get('DATABASE_NAME'),
+        synchronize: config.get('DATABASE_SYNC'),
         autoLoadEntities: true,
       }),
       inject: [ConfigService],

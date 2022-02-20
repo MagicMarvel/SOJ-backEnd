@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { UsersModule } from '../users/users.module';
@@ -10,7 +10,7 @@ import { LocalStrategy } from './strategy/local.strategy';
 @Module({
   // 这里引入UserModule是为了引入它导出的UsersService
   imports: [
-    UsersModule,
+    forwardRef(() => UsersModule),
     PassportModule,
     // 引入jwt模块，设置token过期时间，生成token的那个工具也在这里引入，才能进行注入
     JwtModule.registerAsync({
