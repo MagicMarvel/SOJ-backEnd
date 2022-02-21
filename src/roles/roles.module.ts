@@ -1,13 +1,8 @@
-import { Module } from '@nestjs/common';
-import { APP_GUARD } from '@nestjs/core';
+import { Global, Module } from '@nestjs/common';
 import { RolesGuard } from './roles.guard';
 
+@Global()
 @Module({
-  providers: [
-    {
-      provide: APP_GUARD,
-      useClass: RolesGuard,
-    },
-  ],
+  providers: [RolesGuard],
 })
 export class RolesModule {}

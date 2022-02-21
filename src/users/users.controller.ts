@@ -38,11 +38,9 @@ export class UsersController {
 
   // 使用守卫，把守卫配置成身份验证守卫，策略为Jwt
   @Get('profile')
-  @UseGuards(JwtAuthGuard)
-  // @Roles(Role.User)
+  @Roles(Role.User)
+  @UseGuards(JwtAuthGuard, RolesGuard)
   async getProfile(@Request() req) {
-    console.log(req.user);
-
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { secret, ...result } = await this.usersService.findOne(
       req.user.username,

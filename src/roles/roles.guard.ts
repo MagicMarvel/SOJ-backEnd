@@ -30,6 +30,8 @@ export class RolesGuard implements CanActivate {
     // 获取到请求中的request里面的user
     // 要确保该方法工作，request里面需要有一个user对象，里面需要有一个名为roles的数组，数组每一项都需要是Role(string)
     const { user } = context.switchToHttp().getRequest();
+    // console.log(context.switchToHttp().getRequest());
+
     // 遍历所有权限，看看user里面是否具有要求的全部权限
     return requiredRoles.some((role) => user.roles?.includes(role));
   }

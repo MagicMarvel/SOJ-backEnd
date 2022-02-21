@@ -29,6 +29,7 @@ import { ProblemModule } from './problem/problem.module';
     }),
     AuthModule,
     UsersModule,
+    // 权限模块（全局），只注册一次
     RolesModule,
     ProblemModule,
   ],
