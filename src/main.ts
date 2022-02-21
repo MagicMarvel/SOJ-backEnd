@@ -11,15 +11,14 @@ async function bootstrap() {
 
   // 添加swagger支持
   const options = new DocumentBuilder()
-    .setTitle('Cats example')
-    .setDescription('The cats API description')
+    .setTitle('SOJ API')
+    .setDescription('SOJ API')
     .setVersion('1.0')
-    .addTag('cats')
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api', app, document);
 
-  await app.listen(3000);
+  await app.listen(+process.env.NEST_PORT);
 
   // 模块热更新
   if (module.hot) {
