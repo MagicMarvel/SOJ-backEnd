@@ -6,15 +6,16 @@ export class Problem {
   id: number;
   @Column()
   name: string;
-  @Column()
+  @Column('text')
   description: string;
+  @Column('text')
   input: string;
-  @Column()
+  @Column('text')
   output: string;
-  @Column()
+  @Column('text')
   sample_input: string;
-  @Column()
+  @Column('text')
   sample_output: string;
-  @Column({ nullable: true })
+  @Column('text', { nullable: true })
   hint: string;
 }

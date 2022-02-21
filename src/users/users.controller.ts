@@ -5,7 +5,6 @@ import {
   UseGuards,
   Request,
   Get,
-  SetMetadata,
 } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UsersService } from './users.service';
@@ -24,8 +23,9 @@ export class UsersController {
     private authService: AuthService,
   ) {}
 
+  // 注册
   @Post('regist')
-  create(@Body() createUserDto: CreateUserDto) {
+  regist(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
   }
 

@@ -22,6 +22,7 @@ export class UsersService {
     );
   }
 
+  // 新增一个用户
   async create(createUserDto: CreateUserDto) {
     const oldUser = await this.usersRepository
       .createQueryBuilder('user')
