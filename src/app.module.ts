@@ -7,6 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { RolesModule } from './roles/roles.module';
 import { ProblemModule } from './problem/problem.module';
+import { SubmitModule } from './submit/submit.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { ProblemModule } from './problem/problem.module';
     // 权限模块（全局），只注册一次
     RolesModule,
     ProblemModule,
+    SubmitModule,
   ],
   controllers: [AppController],
   providers: [AppService],

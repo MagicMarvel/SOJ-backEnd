@@ -1,6 +1,6 @@
-import { IsPassportNumber, MaxLength } from 'class-validator';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Role } from './users_roles.entity';
+import { Submition } from '../../submit/entities/submit.entity';
 
 @Entity()
 export class User {
@@ -24,4 +24,7 @@ export class User {
 
   @OneToMany(() => Role, (role) => role.user)
   roles: Role[];
+
+  @OneToMany(() => Submition, (submit) => submit.user)
+  submitions: Submition[];
 }
